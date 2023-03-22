@@ -23,7 +23,7 @@ class _ChainlinkState extends State<Chainlink>{
   }
   Future<DeployedContract>getContract() async{
     String abi=await rootBundle.loadString('assets/abi.json');
-    String contractAddress="0x48BbE5e35C83A1584316B1d00d74C4Fb1903c43e";
+    String contractAddress="0x9A5C03aa7AD485c54D8B3c966E7a7764829108f0";
     final contract=DeployedContract(ContractAbi.fromJson(abi,"PriceData"),
         EthereumAddress.fromHex(contractAddress));
     return contract;
@@ -145,7 +145,7 @@ class _ChainlinkState extends State<Chainlink>{
               cv='Value of ${controller.text} ETH tokens in BTC is ${y}\n';
             });
 
-          },child: Text("Get the current price of Bitcoin V/S Ehtereum "),
+          },child: Text("Get the value of Bitcoin V/S Ehtereum "),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
               shape:MaterialStateProperty.all<RoundedRectangleBorder>(

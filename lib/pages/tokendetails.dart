@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
+import 'swap.dart';
 class Tokendetails extends StatefulWidget{
   final String address;
   const Tokendetails({Key? key,required this.address}):super(key:key);
@@ -26,11 +27,11 @@ class _Tokendetails extends State<Tokendetails>{
   Future<DeployedContract>getContract(String token) async{
     String abi=await rootBundle.loadString('assets/gold.json');
     String contractAddress="";
-    if(token=="GD"){
+    if(token=="gd"){
       contractAddress="0x38181A9Eb6733964A5359B614925440D1932f596";
     }
     else{
-      contractAddress="0x572aD4759937d8B8f4e05478A41224A2a6bdE463";
+      contractAddress="0x8CBCF6fBBDcFca433661e7d7fBC3cC54704D0f77";
     }
     final contract=DeployedContract(ContractAbi.fromJson(abi,"Token"),
         EthereumAddress.fromHex(contractAddress));
@@ -64,32 +65,57 @@ class _Tokendetails extends State<Tokendetails>{
             ElevatedButton(onPressed: ()async{
               var amt=await callFunction("gd", "balanceOf", [myaddress]);
               setState(() {
-                balg='${amt}';
+                balg='${amt[0]}';
               });
             }, child:const Text("Get balance of Gold tokens"),style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.pink)
+              ,
+              shape:MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+
+                      borderRadius: BorderRadius.circular(14.0)
+                  )
+              ),
             ),)
             ,
             Text(
               balg,style:
-                TextStyle(color:Colors.yellow)
+                TextStyle(color:Colors.black)
             ),
             SizedBox(height: 40,),
             ElevatedButton(onPressed: ()async{
               var amt=await callFunction("sl", "balanceOf", [myaddress]);
               setState(() {
-                bals='${amt}';
+                bals='${amt[0]}';
               });
             }, child:const Text("Get balance of Silver tokens"),
             style:ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.pink)
+              ,
+              shape:MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+
+                      borderRadius: BorderRadius.circular(14.0)
+                  )
+              ),
             )),
-            Text(bals,style: TextStyle(color: Colors.yellow),),
+            Text(bals,style: TextStyle(color: Colors.black),),
             SizedBox(height: 50,),
-            ElevatedButton(onPressed: (){}
+            ElevatedButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Swaptokens(address: widget.address,)));
+            }
              , child:Text("Swap Tokens"),style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.purpleAccent)
-            ),)
+                ,
+                shape:MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+
+                        borderRadius: BorderRadius.circular(14.0)
+                    )
+                ),
+            ),),
+            SizedBox(height: 40,),
+            Text("Note the amounts are represented in terms of 1 ETH\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t 1 ETH= 10 power 18 coins",style: TextStyle(color: Colors.grey),)
           ],
         ),
       )

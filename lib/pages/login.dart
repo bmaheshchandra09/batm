@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage>{
      bridge: 'https://bridge.walletconnect.org',
       clientMeta: const PeerMeta(
           name: 'My App',
-          description: 'An app for converting pictures to NFT',
+          description: '',
           url: 'https://walletconnect.org',
           icons: [
             'https://files.gitbook.com/v0/b/gitbook-legacy-files/o/spaces%2F-LJJeCjcLrr53DcT1Ml7%2Favatar.png?alt=media'
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage>{
   loginUsingMetamask(BuildContext context) async {
     if (!connector.connected) {
       try {
-        var session = await connector.createSession(onDisplayUri: (uri) async {
+        var session = await connector.createSession(chainId: 5, onDisplayUri: (uri) async {
           _uri = uri;
           await launchUrlString(uri, mode: LaunchMode.externalApplication);
         });
@@ -70,6 +70,14 @@ class _LoginPageState extends State<LoginPage>{
         )
       ),)
     ,),
+          Container(
+            child: ElevatedButton(
+              onPressed: (){
+                launchUrlString("https://metamask.app.link/", mode: LaunchMode.externalApplication);
+              },
+              child: Text("Open MetaMask"),
+            ),
+          ),
       Container(
 
           alignment: Alignment.center,

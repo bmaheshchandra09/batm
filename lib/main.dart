@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:batm/utls/routes.dart';
+import 'package:batm/routes.dart';
 import 'package:batm/pages/login.dart';
 void main(List<String> args) {
   runApp(const MyApp());

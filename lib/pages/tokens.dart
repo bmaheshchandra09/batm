@@ -18,12 +18,16 @@ class _tokens extends State<tokens>{
       body:(
       Center(
     child:Column(
+
     children:[
+      SizedBox(height: 40,),
       TextField(
         controller:
           controller,
         decoration: InputDecoration(
-          border:OutlineInputBorder(),
+          border:OutlineInputBorder(
+            borderRadius: BorderRadius.circular(14.0),
+          ),
           hintText: "Enter Metamask address"
         ),
       ),
